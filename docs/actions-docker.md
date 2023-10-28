@@ -31,7 +31,7 @@ The [Apache OpenWhisk CLI](https://github.com/apache/openwhisk-cli) has a `--doc
 wsk action create <ACTION_NAME> --docker <IMAGE> source.js
 ```
 
-*`<IMAGE>` must be an image name for a public Docker image on [Docker Hub](https://hub.docker.com/search?q=&type=image).*
+_`<IMAGE>` must be an image name for a public Docker image on [Docker Hub](https://hub.docker.com/search?q=&type=image)._
 
 The `--docker` flag can also be used without providing additional source or archive files for an action.
 
@@ -61,11 +61,11 @@ Apache OpenWhisk publishes all the [existing runtime images](https://hub.docker.
 
 Here are some of the more common runtime images...
 
-- `openwhisk/action-nodejs-v10` - [Node.js 10](https://hub.docker.com/r/openwhisk/action-nodejs-v10) ([Source](https://github.com/apache/openwhisk-runtime-nodejs/blob/master/core/nodejs10Action/Dockerfile))
-- `openwhisk/python3action` - [Python 3](https://hub.docker.com/r/openwhisk/python3action) ([Source](https://github.com/apache/openwhisk-runtime-python/blob/master/core/pythonAction/Dockerfile))
+- `openwhisk/action-nodejs-v18` - [Node.js 18](https://hub.docker.com/r/openwhisk/action-nodejs-v18) ([Source](https://github.com/apache/openwhisk-runtime-nodejs/blob/master/core/nodejs18Action/Dockerfile))
+- `openwhisk/python310action` - [Python 3.10](https://hub.docker.com/r/openwhisk/action-python-v3.10) ([Source](https://github.com/apache/openwhisk-runtime-python/blob/master/core/python310Action/Dockerfile))
 - `openwhisk/java8action` - [Java 8](https://hub.docker.com/r/openwhisk/java8action) ([Source](https://github.com/apache/openwhisk-runtime-java/blob/master/core/java8/Dockerfile))
-- `openwhisk/action-swift-v4.2` - [Swift 4.2](https://hub.docker.com/r/openwhisk/action-swift-v4.2) ([Source](https://github.com/apache/openwhisk-runtime-swift/blob/master/core/swift42Action/Dockerfile))
-- `openwhisk/action-php-v7.4` - [PHP 7.4](https://hub.docker.com/r/openwhisk/action-php-v7.4) ([Source](https://github.com/apache/openwhisk-runtime-php/blob/master/core/php7.4Action/Dockerfile))
+- `openwhisk/action-swift-v5.1` - [Swift 5.1](https://hub.docker.com/r/openwhisk/action-swift-v5.1) ([Source](https://github.com/apache/openwhisk-runtime-swift/blob/master/core/swift51Action/Dockerfile))
+- `openwhisk/action-php-v7.4` - [PHP 8.0](https://hub.docker.com/r/openwhisk/action-php-v8.0) ([Source](https://github.com/apache/openwhisk-runtime-php/blob/master/core/php8.0Action/Dockerfile))
 - `openwhisk/action-ruby-v2.5` - [Ruby 2.5](https://hub.docker.com/r/openwhisk/action-ruby-v2.5) ([Source](https://github.com/apache/openwhisk-runtime-ruby/blob/master/core/ruby2.5Action/Dockerfile))
 
 ## Extending Existing Runtimes
@@ -113,11 +113,11 @@ docker push <USER_NAME>/action-nodejs-v10:tf-js
 - Create a new Apache OpenWhisk action with the following source code:
 
 ```javascript
-const tf = require('@tensorflow/tfjs-node')
+const tf = require("@tensorflow/tfjs-node");
 
 const main = () => {
-  return { tf: tf.version }
-}
+  return { tf: tf.version };
+};
 ```
 
 ```
@@ -218,7 +218,7 @@ wsk action create my-action --native archive.zip
 
 Executables can either be text or binary files. Text-based executable files (e.g. shell scripts) are passed directly as the action source files. Binary files (e.g. C programs) must be named `exec` and packaged into a zip archive.
 
-Native action source files must be executable within the  `openwhisk/dockerskeleton` [runtime image](https://github.com/apache/openwhisk-runtime-docker). This means being compiled for the correct platform architecture, linking to the correct dynamic libraries  and using pre-installed external dependencies.
+Native action source files must be executable within the `openwhisk/dockerskeleton` [runtime image](https://github.com/apache/openwhisk-runtime-docker). This means being compiled for the correct platform architecture, linking to the correct dynamic libraries and using pre-installed external dependencies.
 
 When an invocation request is received by the runtime container, the native action file will be executed until the process exits. Action invocation parameters will be passed as a JSON string to `stdin`.
 
